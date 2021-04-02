@@ -1,8 +1,12 @@
-#include <iostream>
-#include "function.h"
+#include "window.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    std::cout << returnHello();
+
+    Window window("TYPO", 800, 600);
+
+    while (!window.isClosed()) {
+        window.pollEvents();
+    }
+
     return 0;
 }
