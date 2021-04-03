@@ -5,21 +5,28 @@
 #include <utility>
 #include "window.h"
 
+SDL_Renderer *Window::renderer = nullptr;
+
 Window::Window(std::string title, int width, int height) :
         title(std::move(title)), width(width), height(height) {
-    if (!init()) {
-        closed = true;
-    }
+    closed = !init();
 }
 
 Window::~Window() {
     SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
     SDL_Quit();
+    TTF_Quit();
 }
 
 bool Window::init() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "Failed to initialize SDL\n";
+        return false;
+    }
+
+    if (TTF_Init() == -1) {
+        std::cerr << "Failed to initialize SDL_TTF\n";
         return false;
     }
 
@@ -35,6 +42,12 @@ bool Window::init() {
         std::cerr << "Failed to create Window\n";
     }
 
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    if (renderer == nullptr) {
+        std::cerr << "Failed to create Renderer\n";
+    }
+
     return true;
 }
 
@@ -46,8 +59,17 @@ void Window::pollEvents() {
             case SDL_QUIT:
                 closed = true;
                 break;
+            case SDL_TEXTINPUT:
+                std::cout << event.text.text << "\n";
+                break;
             default:
                 break;
         }
     }
+}
+
+void Window::clear() const {
+    SDL_RenderPresent(renderer);
+    SDL_SetRenderDrawColor(renderer, 82, 82, 82, 255);
+    SDL_RenderClear(renderer);
 }

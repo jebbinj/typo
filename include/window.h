@@ -5,6 +5,7 @@
 
 #include <string>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 class Window {
 public:
@@ -20,6 +21,7 @@ public:
     }
 
     void pollEvents();
+    void clear() const;
 
 private:
     std::string title;
@@ -30,6 +32,8 @@ private:
     bool init();
 
     SDL_Window *window = nullptr;
+public:
+    static SDL_Renderer *renderer;
 };
 
 
