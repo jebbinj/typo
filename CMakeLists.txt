@@ -10,5 +10,5 @@ set(CMAKE_CXX_STANDARD 17)
 #find_package(SDL2 REQUIRED)
 include_directories(src include ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR})
 
-add_executable(typo src/main.cpp include/window.h src/window.cpp src/TextSprite.cpp include/TextSprite.h)
+add_executable(typo src/main.cpp include/window.h src/window.cpp src/TextSprite.cpp include/TextSprite.h include/menu.h src/menu.cpp)
 target_link_libraries(typo ${SDL2_LIBRARIES} ${SDL2TTF_LIBRARIES})

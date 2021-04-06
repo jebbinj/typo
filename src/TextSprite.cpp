@@ -5,9 +5,11 @@
 #include "TextSprite.h"
 #include <iostream>
 
-TextSprite::TextSprite(SDL_Renderer *renderer, const std::string &font_path, int font_size, const std::string &text,
+TTF_Font *TextSprite::font = nullptr;
+
+TextSprite::TextSprite(SDL_Renderer *renderer, const std::string &text,
                        const SDL_Color &color) {
-    text_texture = loadFont(renderer, font_path, font_size, text, color);
+    text_texture = loadFont(renderer, text, color);
     SDL_QueryTexture(text_texture, nullptr, nullptr, &text_rect.w, &text_rect.h);
 }
 
@@ -24,20 +26,23 @@ void TextSprite::display(int x, int y, SDL_Renderer *renderer) const {
 }
 
 SDL_Texture *
-TextSprite::loadFont(SDL_Renderer *renderer, const std::string &font_path, int font_size, const std::string &text,
+TextSprite::loadFont(SDL_Renderer *renderer, const std::string &text,
                      const SDL_Color &color) {
-    TTF_Font *font = TTF_OpenFont(font_path.c_str(), font_size);
-    if (!font) {
-        std::cerr << "Failed to load font.\n";
-    }
     auto text_sprite_surface = TTF_RenderText_Solid(font, text.c_str(), color);
     if (!text_sprite_surface) {
         std::cerr << "Failed to create text sprite surface\n";
     }
     auto text_sprite_texture = SDL_CreateTextureFromSurface(renderer, text_sprite_surface);
     if (!text_sprite_texture) {
-        std::cerr << "Failed to create a text sprite texture \n";
+        std::cerr << "Failed to create a text sprite texture\n";
     }
     SDL_FreeSurface(text_sprite_surface);
     return text_sprite_texture;
+}
+
+void TextSprite::setFont(const std::string &path, int size) {
+    font = TTF_OpenFont(path.c_str(), size);
+    if(!font) {
+        std::cerr << "Failed to load the font\n";
+    }
 }

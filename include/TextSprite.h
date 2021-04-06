@@ -9,8 +9,6 @@
 class TextSprite {
 public:
     TextSprite(SDL_Renderer *renderer,
-               const std::string &font_path,
-               int font_size,
                const std::string &text,
                const SDL_Color &color);
 
@@ -21,10 +19,12 @@ public:
 
     static SDL_Texture *
     loadFont(SDL_Renderer *renderer,
-             const std::string &font_path,
-             int font_size,
              const std::string &text,
              const SDL_Color &color);
+
+    static TTF_Font *font;
+
+    static void setFont(const std::string &path, int size);
 
 private:
     SDL_Texture *text_texture = nullptr;

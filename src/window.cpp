@@ -73,3 +73,7 @@ void Window::clear() const {
     SDL_SetRenderDrawColor(renderer, 82, 82, 82, 255);
     SDL_RenderClear(renderer);
 }
+
+void Window::close() {
+    closed = true;
+}

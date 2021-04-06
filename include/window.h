@@ -21,7 +21,10 @@ public:
     }
 
     void pollEvents();
+
     void clear() const;
+
+    void close();
 
 private:
     std::string title;
@@ -34,6 +37,10 @@ private:
     SDL_Window *window = nullptr;
 public:
     static SDL_Renderer *renderer;
+
+    SDL_Window *get_window() {
+        return window;
+    }
 };
 
 
