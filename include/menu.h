@@ -18,5 +18,6 @@ private:
     std::vector<std::string> options;
     int selection;
     Window *window;
+
     int poll_events();
 };

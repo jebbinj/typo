@@ -21,7 +21,6 @@ int Menu::poll_events() {
                 window->close();
                 break;
             case SDL_KEYDOWN:
-                std::cout << event.key.keysym.sym;
                 switch (event.key.keysym.sym) {
                     case SDLK_j:
                         selection + 1 < options.size() && ++selection;

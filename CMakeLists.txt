@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 project(typo)
 
 INCLUDE(FindPkgConfig)
@@ -10,5 +10,5 @@ set(CMAKE_CXX_STANDARD 17)
 #find_package(SDL2 REQUIRED)
 include_directories(src include ${SDL2_INCLUDE_DIR} ${SDL2TTF_INCLUDE_DIR})
 
-add_executable(typo src/main.cpp include/window.h src/window.cpp src/TextSprite.cpp include/TextSprite.h include/menu.h src/menu.cpp)
+add_executable(typo src/main.cpp include/window.h src/window.cpp src/TextSprite.cpp include/TextSprite.h include/menu.h src/menu.cpp src/game.cpp include/game.h include/scattered.h src/scattered.cpp)
 target_link_libraries(typo ${SDL2_LIBRARIES} ${SDL2TTF_LIBRARIES})
