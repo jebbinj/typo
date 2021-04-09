@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 
 Scattered::Scattered(Window *window, unsigned short difficulty) :
-        Game(window),
+        Game(window), 
         difficulty(difficulty) {}
 
 Scattered::~Scattered() = default;
@@ -20,9 +20,9 @@ void Scattered::start() {
 
     std::vector<Sprite> sprites;
 
-    for (int i = 0; i < 10; i++) {
+    for (int k = 0; k < 10; k++) {
         struct Sprite s = {new TextSprite(Window::renderer,
-                                          "Random " + std::to_string(i),
+                                          "Random " + std::to_string(k),
                                           {255, 255, 255, 255}),
                            rand() % w, rand() % h};
         sprites.push_back(s);
