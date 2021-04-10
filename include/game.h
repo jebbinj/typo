@@ -13,11 +13,11 @@ enum GameState {
 
 class Game {
 public:
-    Game(Window *window);
+    explicit Game(Window *window);
 
     ~Game();
 
-    GameState game_state;
+    mutable GameState game_state;
 
     virtual void start() = 0;
 
@@ -25,7 +25,5 @@ public:
 
 protected:
     Window *window;
-    unsigned int wpm;
-
-
+    mutable unsigned int wpm{};
 };

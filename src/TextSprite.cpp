@@ -28,7 +28,7 @@ void TextSprite::display(int x, int y, SDL_Renderer *renderer) const {
 SDL_Texture *
 TextSprite::loadFont(SDL_Renderer *renderer, const std::string &text,
                      const SDL_Color &color) {
-    auto text_sprite_surface = TTF_RenderText_Solid(font, text.c_str(), color);
+    auto text_sprite_surface = TTF_RenderUTF8_Solid(font, text.c_str(), color);
     if (!text_sprite_surface) {
         std::cerr << "Failed to create text sprite surface\n";
     }

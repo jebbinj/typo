@@ -6,4 +6,4 @@
 
 Game::Game(Window *window) : window(window) {}
 
-Game::~Game() {}
+Game::~Game() = default;

@@ -11,6 +11,9 @@ struct Sprite {
     TextSprite *t;
     int x;
     int y;
+    int w;
+    int h;
+    unsigned int startStamp;
 };
 
 class Scattered : public Game {
@@ -19,13 +22,13 @@ public:
 
     ~Scattered();
 
-    void start();
-    void pause();
+    void start() override;
+    void pause() override;
 
 private:
     unsigned short difficulty;
     void poll_events();
 
-    static void render_bar(int x, int y, int w, int h, float Percent, SDL_Color FGColor, SDL_Color BGColor);
+    static void render_bar(int x, int y, int w, float Percent, SDL_Color FGColor, SDL_Color BGColor);
 };
 
