@@ -4,6 +4,7 @@
 #include <iostream>
 #include <utility>
 #include "window.h"
+#include <SDL2/SDL_mixer.h>
 
 SDL_Renderer *Window::renderer = nullptr;
 
@@ -20,10 +21,17 @@ Window::~Window() {
 }
 
 bool Window::init() {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         std::cerr << "Failed to initialize SDL\n";
         return false;
     }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) < 0) {
+        std::cerr << "Failed to initialize audio\n";
+    }
+
+    // Amount of channels (Max amount of sounds playing at the same time)
+    Mix_AllocateChannels(12);
 
     if (TTF_Init() == -1) {
         std::cerr << "Failed to initialize SDL_TTF\n";

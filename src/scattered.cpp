@@ -13,7 +13,9 @@
 
 Scattered::Scattered(Window *window, unsigned short difficulty) :
         Game(window),
-        difficulty(difficulty) {}
+        difficulty(difficulty) {
+    keystroke = new sound("./../res/keystroke.wav", 10);
+}
 
 Scattered::~Scattered() = default;
 
@@ -100,6 +102,7 @@ unsigned int Scattered::poll_events() {
                 window->close();
                 break;
             case SDL_KEYDOWN:
+                keystroke->play();
                 if (event.key.keysym.sym == SDLK_BACKSPACE)
                     return 999;
                 return event.key.keysym.sym;
