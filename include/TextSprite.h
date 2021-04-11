@@ -26,9 +26,13 @@ public:
 
     static void setFont(const std::string &path, int size);
 
+protected:
+    std::string str;
+
+    mutable SDL_Rect text_rect{};
+
 private:
     SDL_Texture *text_texture = nullptr;
-    mutable SDL_Rect text_rect{};
 };
 
 

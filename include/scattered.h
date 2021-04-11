@@ -5,10 +5,10 @@
 #pragma once
 
 #include "game.h"
-#include "TextSprite.h"
+#include "ScatteredSprite.h"
 
 struct Sprite {
-    TextSprite *t;
+    ScatteredSprite *t;
     int x;
     int y;
     int w;
@@ -27,7 +27,7 @@ public:
 
 private:
     unsigned short difficulty;
-    void poll_events();
+    unsigned poll_events();
 
     static void render_bar(int x, int y, int w, float Percent, SDL_Color FGColor, SDL_Color BGColor);
 };

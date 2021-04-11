@@ -10,6 +10,7 @@ TTF_Font *TextSprite::font = nullptr;
 TextSprite::TextSprite(SDL_Renderer *renderer, const std::string &text,
                        const SDL_Color &color) {
     text_texture = loadFont(renderer, text, color);
+    str = text;
     SDL_QueryTexture(text_texture, nullptr, nullptr, &text_rect.w, &text_rect.h);
 }
 

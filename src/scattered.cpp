@@ -18,6 +18,7 @@ Scattered::~Scattered() = default;
 
 void Scattered::start() {
     int w, h, spriteW, spriteH, xRand, yRand;
+    unsigned int sym;
     SDL_GetWindowSize(window->get_window(), &w, &h);
     float percent = 1;
 
@@ -26,7 +27,7 @@ void Scattered::start() {
     std::srand(std::time(nullptr));
 
     for (int k = 0; k < 100; k++) {
-        TTF_SizeUTF8(TextSprite::font, ("Random " + std::to_string(k)).c_str(), &spriteW, &spriteH);
+        TTF_SizeUTF8(TextSprite::font, ("random" + std::to_string(k)).c_str(), &spriteW, &spriteH);
         xRand = std::rand() % w;
         if (xRand + spriteW > w) {
             xRand -= (xRand + spriteW) - w;
@@ -38,7 +39,7 @@ void Scattered::start() {
             yRand -= 25;
         }
         struct Sprite s = {new ScatteredSprite(Window::renderer,
-                                               "Random " + std::to_string(k),
+                                               "random" + std::to_string(k),
                                                {255, 255, 255, 255}),
                            xRand, yRand, spriteW, spriteH, 0};
         sprites.push_back(s);
@@ -52,17 +53,37 @@ void Scattered::start() {
         if (itr->startStamp == 0) {
             itr->startStamp = SDL_GetTicks();
         }
+
+        itr->t->render_cursor();
         itr->t->display(itr->x, itr->y, Window::renderer);
         render_bar(itr->x + itr->w, itr->y + itr->h, -1 * itr->w, percent,
                    {255, 255, 255, 255},
                    {0, 0, 0, 0});
-        poll_events();
 
-        if ((float) (SDL_GetTicks() - itr->startStamp) >= (difficulty * 1000.0)) {
+        sym = poll_events();
+
+        if (sym == SDLK_SPACE || sym == SDLK_RETURN || sym == SDLK_RETURN2) {
             itr++;
             percent = 1;
         } else {
-            percent = 1 - (float) (SDL_GetTicks() - itr->startStamp) / (difficulty * 1000.0);
+            if (sym != 0) {
+                if (sym == 999) {
+                    itr->t->del_char();
+                } else {
+                    itr->t->char_in((char) sym);
+                    SDL_log(itr->t->validate_buffer());
+                    // if (itr->t->validate_buffer()) {
+                    //     itr++;
+                    //     percent = 1;
+                    // }
+                }
+            }
+            if ((float) (SDL_GetTicks() - itr->startStamp) >= (difficulty * 1000.0)) {
+                itr++;
+                percent = 1;
+            } else {
+                percent = 1 - (float) (SDL_GetTicks() - itr->startStamp) / (difficulty * 1000.0);
+            }
         }
     }
 }
@@ -71,7 +92,7 @@ void Scattered::pause() {
     game_state = PAUSED;
 }
 
-void Scattered::poll_events() {
+unsigned int Scattered::poll_events() {
     SDL_Event event;
 
     if (SDL_PollEvent(&event)) {
@@ -79,8 +100,12 @@ void Scattered::poll_events() {
             case SDL_QUIT:
                 window->close();
                 break;
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_BACKSPACE)
+                    return 999;
+                return event.key.keysym.sym;
             default:
-                break;
+                return 0;
         }
     }
 }
