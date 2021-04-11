@@ -4,6 +4,7 @@
 
 #include "scattered.h"
 #include "ScatteredSprite.h"
+#include "wordlist.h"
 #include <ctime>
 #include <iostream>
 #include <cstdlib>
@@ -18,6 +19,7 @@ Scattered::~Scattered() = default;
 
 void Scattered::start() {
     int w, h, spriteW, spriteH, xRand, yRand;
+    std::string word;
     unsigned int sym;
     SDL_GetWindowSize(window->get_window(), &w, &h);
     float percent = 1;
@@ -27,7 +29,8 @@ void Scattered::start() {
     std::srand(std::time(nullptr));
 
     for (int k = 0; k < 100; k++) {
-        TTF_SizeUTF8(TextSprite::font, ("random" + std::to_string(k)).c_str(), &spriteW, &spriteH);
+        word = words[std::rand() % words.size()];
+        TTF_SizeUTF8(TextSprite::font, word.c_str(), &spriteW, &spriteH);
         xRand = std::rand() % w;
         if (xRand + spriteW > w) {
             xRand -= (xRand + spriteW) - w;
@@ -39,7 +42,7 @@ void Scattered::start() {
             yRand -= 25;
         }
         struct Sprite s = {new ScatteredSprite(Window::renderer,
-                                               "random" + std::to_string(k),
+                                               word.c_str(),
                                                {255, 255, 255, 255}),
                            xRand, yRand, spriteW, spriteH, 0};
         sprites.push_back(s);
@@ -72,10 +75,6 @@ void Scattered::start() {
                 } else {
                     itr->t->char_in((char) sym);
                     SDL_log(itr->t->validate_buffer());
-                    // if (itr->t->validate_buffer()) {
-                    //     itr++;
-                    //     percent = 1;
-                    // }
                 }
             }
             if ((float) (SDL_GetTicks() - itr->startStamp) >= (difficulty * 1000.0)) {
