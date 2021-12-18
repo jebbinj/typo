@@ -9,54 +9,51 @@
 const std::vector<std::string> words = {
         "the",
         "and",
-        "to",
-        "of",
-        "a",
-        "in",
-        "is",
+
+
         "that",
         "for",
-        "I",
+
         "you",
-        "it",
+
         "with",
-        "on",
-        "as",
+
+
         "are",
-        "be",
+
         "this",
         "was",
         "have",
-        "or",
-        "at",
+
+
         "not",
         "your",
         "from",
-        "we",
-        "by",
+
+
         "will",
         "can",
         "but",
         "they",
-        "an",
-        "he",
+
+
         "all",
         "has",
-        "if",
+
         "their",
         "one",
-        "do",
+
         "more",
-        "my",
+
         "his",
-        "so",
+
         "there",
         "about",
         "which",
         "when",
         "what",
         "out",
-        "up",
+
         "our",
         "who",
         "also",
@@ -75,10 +72,10 @@ const std::vector<std::string> words = {
         "she",
         "people",
         "these",
-        "no",
+
         "get",
         "how",
-        "me",
+
         "into",
         "than",
         "only",
@@ -98,7 +95,6 @@ const std::vector<std::string> words = {
         "after",
         "even",
         "because",
-        "us",
         "said",
         "good",
         "way",
@@ -127,7 +123,7 @@ const std::vector<std::string> words = {
         "does",
         "great",
         "year",
-        "go",
+
         "help",
         "want",
         "really",
@@ -163,7 +159,7 @@ const std::vector<std::string> words = {
         "since",
         "things",
         "place",
-        "am",
+
         "between",
         "during",
         "different",
@@ -305,7 +301,7 @@ const std::vector<std::string> words = {
         "needs",
         "try",
         "came",
-        "ca",
+
         "based",
         "hard",
         "thought",
@@ -486,7 +482,7 @@ const std::vector<std::string> words = {
         "bring",
         "works",
         "age",
-        "s",
+
         "season",
         "hope",
         "coming",

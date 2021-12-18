@@ -1,0 +1,43 @@
+        -:    0:Source:/home/jebbin/CLionProjects/typo/include/scattered.h
+        -:    0:Graph:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/scattered.cpp.gcno
+        -:    0:Data:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/scattered.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by jebbin on 07/04/21.
+        -:    3://
+        -:    4:
+        -:    5:#pragma once
+        -:    6:
+        -:    7:#include "game.h"
+        -:    8:#include "sound.h"
+        -:    9:#include "ScatteredSprite.h"
+        -:   10:
+        -:   11:struct Sprite {
+        -:   12:    ScatteredSprite *t;
+        -:   13:    int x;
+        -:   14:    int y;
+        -:   15:    int w;
+        -:   16:    int h;
+        -:   17:    unsigned int startStamp;
+        -:   18:};
+        -:   19:
+function _ZN9ScatteredD2Ev called 0 returned 0% blocks executed 0%
+    #####:   20:class Scattered : public Game {
+    %%%%%:   20-block  0
+call    0 never executed
+        -:   21:public:
+        -:   22:    Scattered(Window *window, unsigned short difficulty);
+        -:   23:
+        -:   24:    ~Scattered();
+        -:   25:
+        -:   26:    void start() override;
+        -:   27:    void pause() override;
+        -:   28:
+        -:   29:private:
+        -:   30:    unsigned short difficulty;
+        -:   31:    unsigned poll_events();
+        -:   32:    sound *keystroke;
+        -:   33:    sound *error;
+        -:   34:    static void render_bar(int x, int y, int w, float Percent, SDL_Color FGColor, SDL_Color BGColor);
+        -:   35:};
+        -:   36:

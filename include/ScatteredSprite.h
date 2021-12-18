@@ -16,6 +16,8 @@ public:
 
     bool validate_buffer();
 
+    unsigned short int validate();
+
     void render_cursor();
 
 private:

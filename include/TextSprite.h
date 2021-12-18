@@ -17,14 +17,11 @@ public:
     void display(int x, int y,
                  SDL_Renderer *renderer) const;
 
-    static SDL_Texture *
-    loadFont(SDL_Renderer *renderer,
-             const std::string &text,
-             const SDL_Color &color);
-
     static TTF_Font *font;
 
     static void setFont(const std::string &path, int size);
+
+    void update_text(const std::string &text, SDL_Renderer *renderer);
 
 protected:
     std::string str;

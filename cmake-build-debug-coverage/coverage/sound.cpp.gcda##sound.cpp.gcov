@@ -1,0 +1,74 @@
+        -:    0:Source:/home/jebbin/CLionProjects/typo/src/sound.cpp
+        -:    0:Graph:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/sound.cpp.gcno
+        -:    0:Data:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/sound.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by jebbin on 12/04/21.
+        -:    3://
+        -:    4:
+        -:    5:#include "sound.h"
+        -:    6:#include <iostream>
+        -:    7:
+function _ZN5soundC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi called 2 returned 100% blocks executed 71%
+        2:    8:sound::sound(const std::string &path, int volume) : chunk(Mix_LoadWAV(path.c_str()), Mix_FreeChunk) {
+        2:    8-block  0
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        2:    8-block  1
+call    4 returned 2
+branch  5 taken 2 (fallthrough)
+branch  6 taken 0 (throw)
+        2:    8-block  2
+call    7 returned 2
+    $$$$$:    8-block  3
+call    8 never executed
+    $$$$$:    8-block  4
+call    9 never executed
+        2:    9:    if (!chunk) {
+call    0 returned 2
+branch  1 taken 0 (fallthrough)
+branch  2 taken 2
+    #####:   10:        std::cerr << "Failed to load wav file: " << path;
+    %%%%%:   10-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    %%%%%:   10-block  1
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   11:    }
+        2:   12:    Mix_VolumeChunk(chunk.get(), volume);
+        2:   12-block  0
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        2:   13:}
+        2:   13-block  0
+        -:   14:
+function _ZNK5sound4playEv called 6 returned 100% blocks executed 100%
+        6:   15:void sound::play() const {
+        6:   16:    Mix_PlayChannel(-1, chunk.get(), 0);
+        6:   16-block  0
+call    0 returned 6
+call    1 returned 6
+        6:   17:}
+        -:   18:
+function _ZNK5sound4playEi called 0 returned 0% blocks executed 0%
+    #####:   19:void sound::play(int times) const {
+    #####:   20:    Mix_PlayChannel(-1, chunk.get(), times - 1);
+    %%%%%:   20-block  0
+call    0 never executed
+call    1 never executed
+    #####:   21:}
+        -:   22:
+function _ZNK5sound10set_volumeEi called 0 returned 0% blocks executed 0%
+    #####:   23:void sound::set_volume(int volume) const {
+    #####:   24:    Mix_VolumeChunk(chunk.get(), volume);
+    %%%%%:   24-block  0
+call    0 never executed
+call    1 never executed
+    #####:   25:}

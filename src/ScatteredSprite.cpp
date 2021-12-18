@@ -37,7 +37,7 @@ void ScatteredSprite::render_cursor() {
     int w;
     TTF_SizeUTF8(TextSprite::font, str.substr(0, index < 0 ? 1 : index + 2).c_str(), &w, nullptr);
     SDL_Rect cursorRect = {text_rect.x, text_rect.y, w, text_rect.h};
-    SDL_SetRenderDrawColor(Window::renderer, 196, 196, 196, 255);
+    SDL_SetRenderDrawColor(Window::renderer, 54, 54, 54, 255);
     SDL_RenderFillRect(Window::renderer, &cursorRect);
     SDL_Color bgColor = validate_buffer() ? greenBG : redBG;
     TTF_SizeUTF8(TextSprite::font, str.substr(0, index < 0 ? 0 : index + 1).c_str(), &w, nullptr);
@@ -48,4 +48,14 @@ void ScatteredSprite::render_cursor() {
 
 bool ScatteredSprite::validate_buffer() {
     return (buffer == str.substr(0, index < 0 ? 0 : index + 1));
+}
+
+unsigned short int ScatteredSprite::validate() {
+    unsigned short int errorChars = index + 1;
+    for (int i = 0; i <= index; i++) {
+        if (str[i] == buffer[i]) {
+            errorChars--;
+        }
+    }
+    return errorChars;
 }

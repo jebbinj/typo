@@ -53,7 +53,8 @@ int Menu::display_menu() {
         int w, h, optionWidth, optionHeight;
         SDL_GetWindowSize(window->get_window(), &w, &h);
         for (std::string &option : options) {
-            TextSprite menuItem(Window::renderer, i == selection ? "- " + option + " -" : option, {255, 255, 255, 255});
+            TextSprite menuItem(Window::renderer, i == selection ? "- " + option + " -" : option,
+                                {255, 255, 255, 255});
             TTF_SizeUTF8(TextSprite::font,
                          (i == selection ? "- " + option + " -" : option).c_str(),
                          &optionWidth,

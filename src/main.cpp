@@ -13,7 +13,7 @@ int main() {
     int selection = menu.display_menu();
     if (selection == 2) window.close();
 
-    game = new Scattered(&window, 3);
+    game = new Scattered(&window, 9);
     game->start();
 
     delete game;

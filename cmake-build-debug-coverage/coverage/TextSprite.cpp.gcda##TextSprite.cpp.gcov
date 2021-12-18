@@ -1,0 +1,108 @@
+        -:    0:Source:/home/jebbin/CLionProjects/typo/src/TextSprite.cpp
+        -:    0:Graph:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/TextSprite.cpp.gcno
+        -:    0:Data:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/TextSprite.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by jebbin on 03/04/21.
+        -:    3://
+        -:    4:
+        -:    5:#include "TextSprite.h"
+        -:    6:#include <iostream>
+        -:    7:
+        -:    8:TTF_Font *TextSprite::font = nullptr;
+        -:    9:
+function _ZN10TextSpriteC2EP12SDL_RendererRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERK9SDL_Color called 4900 returned 100% blocks executed 86%
+     4900:   10:TextSprite::TextSprite(SDL_Renderer *renderer, const std::string &text,
+     4900:   11:                       const SDL_Color &color) {
+     4900:   11-block  0
+call    0 returned 4900
+    $$$$$:   11-block  1
+call    1 never executed
+     4900:   12:    text_texture = loadFont(renderer, text, color);
+call    0 returned 4900
+branch  1 taken 4900 (fallthrough)
+branch  2 taken 0 (throw)
+     4900:   13:    str = text;
+     4900:   13-block  0
+call    0 returned 4900
+branch  1 taken 4900 (fallthrough)
+branch  2 taken 0 (throw)
+     4900:   14:    SDL_QueryTexture(text_texture, nullptr, nullptr, &text_rect.w, &text_rect.h);
+     4900:   14-block  0
+call    0 returned 4900
+branch  1 taken 4900 (fallthrough)
+branch  2 taken 0 (throw)
+     4900:   15:}
+     4900:   15-block  0
+        -:   16:
+function _ZN10TextSpriteD2Ev called 4800 returned 100% blocks executed 100%
+     4800:   17:TextSprite::~TextSprite() {
+call    0 returned 4800
+     4800:   18:    SDL_DestroyTexture(text_texture);
+     4800:   18-block  0
+call    0 returned 4800
+     4800:   19:}
+        -:   20:
+function _ZNK10TextSprite7displayEiiP12SDL_Renderer called 17922 returned 100% blocks executed 43%
+    17922:   21:void TextSprite::display(int x, int y, SDL_Renderer *renderer) const {
+    17922:   22:    text_rect.x = x;
+    17922:   23:    text_rect.y = y;
+    17922:   24:    if (SDL_RenderCopy(renderer, text_texture, nullptr, &text_rect) < 0) {
+    17922:   24-block  0
+call    0 returned 17922
+branch  1 taken 0 (fallthrough)
+branch  2 taken 17922
+    #####:   25:        std::cerr << "RenderCopy error: " << SDL_GetError() << std::endl;
+    %%%%%:   25-block  0
+call    0 never executed
+call    1 never executed
+call    2 never executed
+call    3 never executed
+        -:   26:    }
+    17922:   27:}
+        -:   28:
+        -:   29:SDL_Texture *
+function _ZN10TextSprite8loadFontEP12SDL_RendererRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERK9SDL_Color called 4900 returned 100% blocks executed 80%
+     4900:   30:TextSprite::loadFont(SDL_Renderer *renderer, const std::string &text,
+        -:   31:                     const SDL_Color &color) {
+     4900:   32:    auto text_sprite_surface = TTF_RenderUTF8_Solid(font, text.c_str(), color);
+     4900:   32-block  0
+call    0 returned 4900
+call    1 returned 4900
+     4900:   33:    if (!text_sprite_surface) {
+branch  0 taken 0 (fallthrough)
+branch  1 taken 4900
+    #####:   34:        std::cerr << "Failed to create text sprite surface\n";
+    %%%%%:   34-block  0
+call    0 never executed
+        -:   35:    }
+     4900:   36:    auto text_sprite_texture = SDL_CreateTextureFromSurface(renderer, text_sprite_surface);
+     4900:   36-block  0
+call    0 returned 4900
+     4900:   37:    if (!text_sprite_texture) {
+branch  0 taken 0 (fallthrough)
+branch  1 taken 4900
+    #####:   38:        std::cerr << "Failed to create a text sprite texture\n";
+    %%%%%:   38-block  0
+call    0 never executed
+        -:   39:    }
+     4900:   40:    SDL_FreeSurface(text_sprite_surface);
+     4900:   40-block  0
+call    0 returned 4900
+     4900:   41:    return text_sprite_texture;
+        -:   42:}
+        -:   43:
+function _ZN10TextSprite7setFontERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi called 1 returned 100% blocks executed 80%
+        1:   44:void TextSprite::setFont(const std::string &path, int size) {
+        1:   45:    font = TTF_OpenFont(path.c_str(), size);
+        1:   45-block  0
+call    0 returned 1
+call    1 returned 1
+        1:   46:    if(!font) {
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    #####:   47:        std::cerr << "Failed to load the font\n";
+    %%%%%:   47-block  0
+call    0 never executed
+        -:   48:    }
+        1:   49:}

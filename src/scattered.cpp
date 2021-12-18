@@ -6,7 +6,7 @@
 #include "ScatteredSprite.h"
 #include "wordlist.h"
 #include <ctime>
-#include <iostream>
+#include <string>
 #include <cstdlib>
 #include <vector>
 #include <SDL2/SDL.h>
@@ -15,22 +15,24 @@ Scattered::Scattered(Window *window, unsigned short difficulty) :
         Game(window),
         difficulty(difficulty) {
     keystroke = new sound("./../res/keystroke.wav", 10);
+    error = new sound("./../res/error.wav", 15);
 }
 
 Scattered::~Scattered() = default;
 
 void Scattered::start() {
     int w, h, spriteW, spriteH, xRand, yRand;
-    std::string word;
-    unsigned int sym;
-    SDL_GetWindowSize(window->get_window(), &w, &h);
+    std::string word, score{"0 WPM"};
+    unsigned int sym, startTime{SDL_GetTicks()}, typedChars{0}, errorChars{0};
     float percent = 1;
-
+    TextSprite scoreText(Window::renderer, score, {255, 255, 255});
     std::vector<Sprite> sprites;
+
+    SDL_GetWindowSize(window->get_window(), &w, &h);
 
     std::srand(std::time(nullptr));
 
-    for (int k = 0; k < 100; k++) {
+    for (int k = 0; k < 1000; k++) {
         word = words[std::rand() % words.size()];
         TTF_SizeUTF8(TextSprite::font, word.c_str(), &spriteW, &spriteH);
         xRand = std::rand() % w;
@@ -41,10 +43,10 @@ void Scattered::start() {
         yRand = std::rand() % h;
         if (yRand + spriteH > h) {
             yRand -= (yRand + spriteH) - h;
-            yRand -= 25;
+            yRand -= 30;
         }
         struct Sprite s = {new ScatteredSprite(Window::renderer,
-                                               word.c_str(),
+                                               word,
                                                {255, 255, 255, 255}),
                            xRand, yRand, spriteW, spriteH, 0};
         sprites.push_back(s);
@@ -58,9 +60,11 @@ void Scattered::start() {
         if (itr->startStamp == 0) {
             itr->startStamp = SDL_GetTicks();
         }
-
+        scoreText.update_text(std::to_string(wpm) + " WPM", Window::renderer);
+        scoreText.display(w - 100, 10, Window::renderer);
         itr->t->render_cursor();
         itr->t->display(itr->x, itr->y, Window::renderer);
+        (itr + 1)->t->display((itr + 1)->x, (itr + 1)->y, Window::renderer);
         render_bar(itr->x + itr->w, itr->y + itr->h, -1 * itr->w, percent,
                    {255, 255, 255, 255},
                    {0, 0, 0, 0});
@@ -68,6 +72,12 @@ void Scattered::start() {
         sym = poll_events();
 
         if (sym == SDLK_SPACE || sym == SDLK_RETURN || sym == SDLK_RETURN2) {
+            unsigned short int errors = itr->t->validate();
+            if (errors) {
+                errorChars += errors;
+                error->play();
+            }
+            wpm = ((typedChars / 5) - errorChars * 1.0) / (((double) (SDL_GetTicks() - startTime) / 1000) / 60);
             itr++;
             percent = 1;
         } else {
@@ -76,10 +86,16 @@ void Scattered::start() {
                     itr->t->del_char();
                 } else {
                     itr->t->char_in((char) sym);
-                    SDL_log(itr->t->validate_buffer());
+                    if (!itr->t->validate_buffer())
+                        error->play();
+                    else
+                        wpm = ((++typedChars / 5) - errorChars * 1.0) /
+                              (((double) (SDL_GetTicks() - startTime) / 1000) / 60);
                 }
             }
             if ((float) (SDL_GetTicks() - itr->startStamp) >= (difficulty * 1000.0)) {
+                if (itr->t->validate())
+                    error->play();
                 itr++;
                 percent = 1;
             } else {
@@ -105,6 +121,10 @@ unsigned int Scattered::poll_events() {
                 keystroke->play();
                 if (event.key.keysym.sym == SDLK_BACKSPACE)
                     return 999;
+                else if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    game_state = PAUSED;
+                    break;
+                }
                 return event.key.keysym.sym;
             default:
                 return 0;

@@ -30,6 +30,7 @@ private:
     unsigned short difficulty;
     unsigned poll_events();
     sound *keystroke;
+    sound *error;
     static void render_bar(int x, int y, int w, float Percent, SDL_Color FGColor, SDL_Color BGColor);
 };
 
