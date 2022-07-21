@@ -1,0 +1,14 @@
+        -:    0:Source:/home/jebbin/CLionProjects/typo/src/game.cpp
+        -:    0:Graph:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/game.cpp.gcno
+        -:    0:Data:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/game.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by jebbin on 06/04/21.
+        -:    3://
+        -:    4:
+        -:    5:#include "game.h"
+        -:    6:
+function _ZN4GameC2EP6Window called 1 returned 100% blocks executed 100%
+        1:    7:Game::Game(Window *window) : window(window) {}
+        -:    8:
+        -:    9:Game::~Game() = default;

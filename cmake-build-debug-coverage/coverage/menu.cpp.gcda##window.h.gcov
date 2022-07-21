@@ -1,0 +1,54 @@
+        -:    0:Source:/home/jebbin/CLionProjects/typo/include/window.h
+        -:    0:Graph:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/menu.cpp.gcno
+        -:    0:Data:/home/jebbin/CLionProjects/typo/cmake-build-debug-coverage/CMakeFiles/typo.dir/src/menu.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by jebbin on 30/03/21.
+        -:    3://
+        -:    4:#pragma once
+        -:    5:
+        -:    6:#include <string>
+        -:    7:#include <SDL2/SDL.h>
+        -:    8:#include <SDL2/SDL_ttf.h>
+        -:    9:
+        -:   10:class Window {
+        -:   11:public:
+        -:   12:    Window(std::string title,
+        -:   13:           int width,
+        -:   14:           int height
+        -:   15:    );
+        -:   16:
+        -:   17:    ~Window();
+        -:   18:
+function _ZNK6Window8isClosedEv called 8162 returned 100% blocks executed 100%
+     8162:   19:    inline bool isClosed() const {
+     8162:   20:        return closed;
+     8162:   20-block  0
+        -:   21:    }
+        -:   22:
+        -:   23:    void pollEvents();
+        -:   24:
+        -:   25:    void clear() const;
+        -:   26:
+        -:   27:    void close();
+        -:   28:
+        -:   29:private:
+        -:   30:    std::string title;
+        -:   31:    int width = 800;
+        -:   32:    int height = 600;
+        -:   33:    bool closed = false;
+        -:   34:
+        -:   35:    bool init();
+        -:   36:
+        -:   37:    SDL_Window *window = nullptr;
+        -:   38:public:
+        -:   39:    static SDL_Renderer *renderer;
+        -:   40:
+function _ZN6Window10get_windowEv called 1601 returned 100% blocks executed 100%
+     1601:   41:    SDL_Window *get_window() {
+     1601:   42:        return window;
+     1601:   42-block  0
+        -:   43:    }
+        -:   44:};
+        -:   45:
+        -:   46:
